@@ -1,3 +1,4 @@
+#import dependancy
 import librosa
 import librosa.display
 import numpy as np
@@ -25,15 +26,15 @@ ap = argparse.ArgumentParser()
 ap.add_argument("-m", "--test", required=True, help="path to test folder")
 args = vars(ap.parse_args())
 
-# loading json and creating model
+# loading json file and creating model
 from keras.models import model_from_json
-opt = keras.optimizers.Adam( beta_1=0.9, beta_2=0.999, amsgrad=False)
+opt = keras.optimizers.Adam( beta_1=0.9, beta_2=0.999, amsgrad=False)# define optimizer
 json_file = open('model.json', 'r')
 loaded_model_json = json_file.read()
 json_file.close()
 loaded_model = model_from_json(loaded_model_json)
 # load weights into new model
-loaded_model.load_weights("saved_models/Emotion_Voice_Detection_Model.h5")
+loaded_model.load_weights("saved_models/Emotion_Voice_Detection_Model.h5")#loading weights
 print("Loaded model from disk")
  
 # evaluate loaded model on test data
@@ -45,6 +46,7 @@ print(args["test"])
 # 	print(i)
 path = args["test"]
 f= open("Prediction.txt","w+")
+#[Extracting the feature from >wav file and convert into vectors form]
 for i in os.listdir(args["test"]):
 	I=[]
 	M = pd.DataFrame(columns=['feature'])
